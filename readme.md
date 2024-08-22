@@ -12,7 +12,7 @@ MainCode folder contains the Python modules used.
 
 Primary Files
 
-TrainCTDL.py - main code to run models, many test functions used during development
+TrainCTDL.py - main code to run models and features many test functions used during development. Run with quicktestCTDL() function to run against Maze 1 and ensure all elements are installed correctly. Output will feature in a Results folder with a sub-folder incorporating date and time.
 CTDL.py - main code for CTDL model, derived from Stable Baselines DQN class
 CTDLPolicy.py - implements policy and predict function using both DQN and SOM contents
 SOM.py - implementation of SOM and SOMLayer classes
