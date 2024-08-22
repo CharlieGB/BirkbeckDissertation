@@ -1,0 +1,9 @@
+torch
+torchvision
+stable-baselines3
+gymnasium
+pygame
+seaborn
+optuna
+scikit-learn
+jenkspy
