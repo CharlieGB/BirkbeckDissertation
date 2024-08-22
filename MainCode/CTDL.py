@@ -228,7 +228,6 @@ class CTDL(DQN):
         self._update_learning_rate(self.policy.optimizer)
 
         # Get the most recent entry index
-        #for bufferPos in range(max(self.replay_buffer.pos  - batch_size, self.lastBufferPos), self.replay_buffer.pos): # - batch_size
         endPos = self.replay_buffer.pos
         if self.replay_buffer.pos < self.lastBufferPos:
             endPos = self.replay_buffer.pos + self.replay_buffer.buffer_size
@@ -244,10 +243,6 @@ class CTDL(DQN):
             recent_done = self.replay_buffer.dones[recent_index]
             # print(f"Training: {recent_state}, {recent_action}, {recent_reward}, {recent_next_state}, {recent_done}")
             # replay_data = self.replay_buffer.sample(1, env=self._vec_normalize_env)  # type: ignore[union-attr]
-
-
-            # Sample replay buffer
-            #replay_data = self.replay_buffer.sample(1, env=self._vec_normalize_env)  # type: ignore[union-attr]
 
             with th.no_grad():
                 # Compute the next Q-values using the target network
@@ -300,7 +295,7 @@ class CTDL(DQN):
             # Update the SOM with the result (this will also update the q graph)
             self.UpdateSOM(recent_state, recent_action, target_q_values.cpu().numpy())
 
-            # Save interim version of model if required
+            # Save interim version of model if requested in the progresssModel array of step counts
             if self.progressModel is not None:
                 if (self.trainStepCount) in self.progressModel:
                     self.save(f"{self.directory}/CTDL_ProgressModel_{self.trainStepCount}")
@@ -375,56 +370,6 @@ class CTDL(DQN):
 
         self.logger.record("train/loss", np.mean(losses))
 
-
-    # def UnusedTrainFunction():
-
-    #         # Get current Q-values estimates
-    #         current_q_values = self.q_net(replay_data.observations)
-
-    #         # Retrieve the q-values for the actions from the replay buffer
-    #         current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long())
-
-    #         # Adjust Q values based on contents of the SOM
-    #         # Looping through each item in the batch
-    #         if not self.ignoreSom:
-    #             for i in range(batch_size):
-    #                 qValueDQN = target_q_values[i].numpy()
-    #                 state = replay_data.observations[i].numpy()
-    #                 action = replay_data.actions[i].numpy()
-    #                 reward = replay_data.rewards[i].numpy()
-    #                 best_unit = self.SOM.GetOutput(state)
-    #                 som_action_values = self.QValues[best_unit, :]
-    #                 w = self.GetWeighting(best_unit, state)
-    #                 qValue = (w * som_action_values[action][0]) +  ((1 - w) * qValueDQN[0])
-    #                 self.w = w
-    #                 self.best_unit = best_unit
-    #                 target_q_values[i] = qValue
-    #                 target = reward + (qValue * self.discount_factor)
-    #                 delta = np.exp(target - qValueDQN/self.TD_decay) - 1 # should this use the original target value from the q network e.g. qValueDQN or target_q_values
-    #                 delta = np.clip(delta, 0, 1)
-    #                 self.SOM.Update(state, best_unit, delta, self.update_mask)
-    #                 self.SOM.RecordLocationCounts()
-    #                 self.QValues[best_unit, action] += self.Q_alpha * w * (target - self.QValues[best_unit, action]) * self.update_mask[best_unit]
-
-
-
-
-    #         # Compute Huber loss (less sensitive to outliers)
-    #         loss = F.smooth_l1_loss(current_q_values, target_q_values)
-    #         losses.append(loss.item())
-
-    #         # Optimize the policy
-    #         self.policy.optimizer.zero_grad()
-    #         loss.backward()
-    #         # Clip gradient norm
-    #         th.nn.utils.clip_grad_norm_(self.policy.parameters(), self.max_grad_norm)
-    #         self.policy.optimizer.step()
-
-    #     # Increase update counter
-    #     self._n_updates += gradient_steps
-
-    #     self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
-    #     self.logger.record("train/loss", np.mean(losses))
 
     def GetWeighting(self, best_unit, state):
 
@@ -585,12 +530,7 @@ class CTDL(DQN):
         model.policy.ctdl = model
         model.reset_params()
         
-        # Load the custom information
-        # custom_info_path = os.path.join(path, '_som.pkl')
         model.loadSOMBin(path + '_som.pkl')
-        # if os.path.exists(custom_info_path):
-        #     with open(custom_info_path, 'r') as f:
-        #         model.custom_info = json.load(f)
         return model
     
     def RecordTestResults(self, maze, trial, test_trial):

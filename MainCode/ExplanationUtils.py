@@ -84,6 +84,7 @@ def ExtractExplanation(test_results, exp_thresh, bShuffle_Exp, excludeDuplicates
 
     return exp_actions, exp_memories, exp_values, exp_weights, exp_observations
 
+# Experimental, not used
 def ExtractExplanation2(test_results, exp_thresh, bShuffle_Exp, exp_thresh2=None, identifyTopTier=False):
     weights = np.array(test_results['weights'])
     actions = np.array(test_results['actions'])
@@ -493,25 +494,7 @@ if __name__ == "__main__":
     plt.interactive(True)
     plt.ion()
     observations = []
-    explanationFile = 'C://Users//charl//Documexnts//Dissertation//Torch23Python311//DissertationWorkingCode//Results//2024-07-26 15-20-21//Explanation_1_TestTrial_0.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-02 07-43-41 10/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-02 06-34-14 11/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-07 20-38-02 7/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-11 18-13-34 10 SOM 6/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-13 11-17-45 63 SOM 6 - Chosen/Explanation_1_TestTrial_1.pkl'
-    explanationFile = 'C:/Users/charl/Documents/Dissertation/Torch23Python311/DissertationWorkingCode/Results/2024-08-20 16-15-25 1/Explanation_1_TestTrial_1.pkl'
-    explanationFile = 'C:/Users/charl/Documents/Dissertation/Torch23Python311/DissertationWorkingCode/Results/2024-08-20 21-55-26 21/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 09-52-13 80/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 10-05-15 81/Explanation_1_TestTrial_1.pkl'
-    explanationFile ='/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 13-59-18 72/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 14-00-00 73/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 14-47-30 26 chosen 5/Explanation_1_TestTrial_1.pkl'
-    explanationFile= '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 14-51-59 41 - chosen 6/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 15-00-40 17 0 chosen 4/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 20-04-28 50 Maze 5 SOM 4/Explanation_1_TestTrial_1.pkl'
-    #explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-14 14-05-33 79 Maze 5 SOM 3/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 19-52-00 11 Maze 5 SOM Size 5/Explanation_1_TestTrial_1.pkl'
-    explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-21 19-56-13 19 Maze 5 SOM 6/Explanation_1_TestTrial_1.pkl'
+
     explanationFile = '/Users/charles/Development/Dissertation/DissertationWorkingCode/Results/2024-08-22 11-41-02 91/Explanation_1_TestTrial_1.pkl'
 
     folder = os.path.dirname(explanationFile)

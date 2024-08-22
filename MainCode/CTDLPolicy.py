@@ -66,28 +66,11 @@ class CTDLPolicy(DQNPolicy):
         self.ctdl = None
 
     def _predict(self, obs: PyTorchObs, deterministic: bool = True) -> th.Tensor:
-        #qValues = self.q_net(self.q_net.extract_features(obs, self.q_net.features_extractor))
-        #action = qValues.argmax(dim=1).reshape(-1)
-
-        
         q_graph_values = self.q_net(self.q_net.extract_features(obs, self.q_net.features_extractor))
         q_graph_values = q_graph_values.cpu().numpy()
         #q_graph_values = np.squeeze(np.array(self.q_net(th.tensor(np.expand_dims(obs, axis=0))).detach().cpu().numpy()))
         q_values = self.ctdl.GetQValues(obs.cpu().numpy(), q_graph_values)
         action = th.tensor(np.argmax(q_values))
-
-
-        # if not self.ctdl.ignoreSom:
-        #     # adjust predicted action with influence from SOM
-        #     state = obs.numpy()
-        #     best_unit = self.ctdl.SOM.GetOutput(state)
-        #     som_action_values = self.ctdl.QValues[best_unit, :]
-        #     w = self.ctdl.GetWeighting(best_unit, state)
-        #     q_values = (w * som_action_values) + ((1 - w) * qValues.numpy())
-        #     self.ctdl.w = w
-        #     self.ctdl.best_unit = best_unit
-        #     actionVal = np.argmax(q_values)
-        #     action = th.tensor(actionVal)
 
         return action
     
