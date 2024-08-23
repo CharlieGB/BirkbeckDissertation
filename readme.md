@@ -6,9 +6,16 @@ Thanks to Sam Blakeman and Denis Mareschal
 
 requirements.txt contains the modules required by the project
 
+pip install -r requirements.txt
+
+
 Latest versions of libraries should work, however there may be a need to downgrade numpy<2
 
+pip install "numpy<2"
+
+
 MainCode folder contains the Python modules used.
+
 
 Primary Files
 
