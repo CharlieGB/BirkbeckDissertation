@@ -17,7 +17,8 @@ pip install "numpy<2"
 MainCode folder contains the Python modules used.
 
 
-Primary Files
+
+*Primary Files*
 
 TrainCTDL.py - main code to run models and features many test functions used during development. Run with quicktestCTDL() function to run against Maze 1 and ensure all elements are installed correctly. Output will feature in a Results folder with a sub-folder incorporating date and time.
 
